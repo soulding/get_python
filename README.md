@@ -1,2 +1,2 @@
 # get_python
-练习
+学习Python的实战小项目
