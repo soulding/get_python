@@ -1,8 +1,9 @@
 import sys
 import pygame
-#导入设置类
+#导入Settings类
 from settings import Settings
-
+#导入Ship类
+from ship import Ship
 def run_game():
 	#初始化背景设置
 	pygame.init()
@@ -15,13 +16,14 @@ def run_game():
 	#窗口标题
 	pygame.display.set_caption("Alien Invasion")
 	#背景颜色
-	bg_color = (230,230,230)
+	ship = Ship(screen)
 	while True:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				sys.exit()
 		#填充背景色
 		screen.fill(ai_settings.bg_color)
+		ship.blitme()
 		#更新屏幕
 		pygame.display.flip()
 run_game()
