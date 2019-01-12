@@ -1,9 +1,11 @@
-import sys
 import pygame
 #导入Settings类
 from settings import Settings
 #导入Ship类
 from ship import Ship
+#导入游戏函数
+import game_functions as gf
+
 def run_game():
 	#初始化背景设置
 	pygame.init()
@@ -18,12 +20,6 @@ def run_game():
 	#背景颜色
 	ship = Ship(screen)
 	while True:
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				sys.exit()
-		#填充背景色
-		screen.fill(ai_settings.bg_color)
-		ship.blitme()
-		#更新屏幕
-		pygame.display.flip()
+		gf.check_events()
+		gf.update_screen(ai_settings, screen, ship)
 run_game()
