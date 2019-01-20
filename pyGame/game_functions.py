@@ -101,10 +101,13 @@ def create_fleet(ai_settings, screen, ship, aliens):
 		for alien_number in range(number_aliens_x):
 			create_alien(ai_settings, screen, aliens, alien_number, row_number)
 
-def update_aliens(ai_settings, aliens):
+def update_aliens(ai_settings, ship, aliens):
 	"""检查是否有外星人在边缘，并更新外星人群中所有外星人的位置"""
 	check_fleet_edges(ai_settings, aliens)
 	aliens.update()
+	#检测外星人和飞船之间的碰撞
+	if pygame.sprite.spritecollideany(ship, aliens):
+		print('Ship hit!')
 
 def check_fleet_edges(ai_settings, aliens):
 	"""有外星人到达边缘时采取相应措施"""
