@@ -1,4 +1,5 @@
 import sys
+from time import sleep
 import pygame
 from bullet import Bullet
 from alien import Alien
@@ -101,13 +102,26 @@ def create_fleet(ai_settings, screen, ship, aliens):
 		for alien_number in range(number_aliens_x):
 			create_alien(ai_settings, screen, aliens, alien_number, row_number)
 
-def update_aliens(ai_settings, ship, aliens):
+def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+	"""响应被外星人碰撞的飞船"""
+	#ship_left减1
+	stats.ship_limit -= 1
+	#清空外星人列表和子弹列表
+	aliens.empty()
+	bullets.empty()
+	#创建一群新的外星人，并将飞船放到屏幕低端中央
+	create_fleet(ai_settings, screen, ship, aliens)
+	ship.center_ship()
+	#暂停0.5s
+	sleep(0.5)
+
+def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
 	"""检查是否有外星人在边缘，并更新外星人群中所有外星人的位置"""
 	check_fleet_edges(ai_settings, aliens)
 	aliens.update()
 	#检测外星人和飞船之间的碰撞
 	if pygame.sprite.spritecollideany(ship, aliens):
-		print('Ship hit!')
+		ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
 
 def check_fleet_edges(ai_settings, aliens):
 	"""有外星人到达边缘时采取相应措施"""
